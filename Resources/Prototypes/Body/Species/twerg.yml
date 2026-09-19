@@ -1,0 +1,292 @@
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceTwerg
+  categories: [ HideSpawnMenu ]
+  name: twerg appearance
+  components:
+  - type: Inventory
+    speciesId: twerg
+    displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: jumpsuit
+      eyes:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: eyes
+      gloves:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: hand
+      head:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: head
+      neck:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: neck
+      back:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: back
+      ears:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: ears
+      shoes:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: shoes
+  - type: Hands
+    leftHandDisplacement:
+      sizeMaps:
+        32:
+          sprite: Mobs/Species/Twerg/displacement.rsi
+          state: hand_l
+    rightHandDisplacement:
+      sizeMaps:
+        32:
+          sprite: Mobs/Species/Twerg/displacement.rsi
+          state: hand_r
+  - type: InitialBody
+    organs:
+      Torso: OrganTwergTorso
+      Head: OrganTwergHead
+      ArmLeft: OrganTwergArmLeft
+      ArmRight: OrganTwergArmRight
+      HandRight: OrganTwergHandRight
+      HandLeft: OrganTwergHandLeft
+      LegLeft: OrganTwergLegLeft
+      LegRight: OrganTwergLegRight
+      FootLeft: OrganTwergFootLeft
+      FootRight: OrganTwergFootRight
+      Brain: OrganTwergBrain
+      Eyes: OrganTwergEyes
+      Tongue: OrganTwergTongue
+      Appendix: OrganTwergAppendix
+      Ears: OrganTwergEars
+      Lungs: OrganTwergLungs
+      Heart: OrganTwergHeart
+      Stomach: OrganTwergStomach
+      Liver: OrganTwergLiver
+      Kidneys: OrganTwergKidneys
+  - type: HumanoidProfile
+    species: Twerg
+
+- type: entity
+  parent:
+  - AppearanceTwerg
+  - BaseSpeciesMobOrganic
+  id: MobTwerg
+  name: Urist McRoach
+  components:
+  - type: Damageable
+    damageModifierSet: Twerg
+  - type: Fixtures
+    fixtures: # TODO: This needs a second fixture just for mob collisions.
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        # they r smaller
+        density: 120
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Speech
+    speechVerb: Vox
+    speechSounds: Vox
+    allowedEmotes: ['Click', 'Chitter']
+  - type: TypingIndicator
+    proto: Vox
+  - type: Vocal
+    emoteSounds: UnisexVox
+  - type: ReplacementAccent
+    accent: Scottish
+  - type: CreamPied
+    sprite:
+      sprite: Effects/creampie.rsi
+      state: creampie_vox
+  - type: Damageable
+    displacement: vox
+  - type: Flammable
+    displacement: vox
+  - type: InnerBodyAnomalyVisuals
+    displacement: vox
+  - type: DamageVisuals
+    damageOverlayGroups:
+      Brute:
+        sprite: Mobs/Effects/brute_damage.rsi
+        color: "#7a8bf2"
+      Burn:
+        sprite: Mobs/Effects/burn_damage.rsi
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: CopperBlood
+        Quantity: 600
+  - type: MeleeWeapon
+    soundHit:
+      collection: AlienClaw
+    angle: 30
+    animation: WeaponArcClaw
+    damage:
+      types:
+        Slash: 5 # Reduce?
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganTwerg
+  abstract: true
+  suffix: Twerg
+
+- type: entity
+  id: OrganTwergMetabolizer
+  abstract: true
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Twerg ]
+
+- type: entity
+  parent: OrganTwerg
+  id: OrganTwergInternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Twerg/organs.rsi
+
+- type: entity
+  id: OrganTwergVisual
+  abstract: true
+  components:
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Twerg/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Twerg
+
+- type: entity
+  parent: [ OrganTwerg, OrganTwergVisual ]
+  id: OrganTwergExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Twerg/parts.rsi
+
+- type: entity
+  parent: [ OrganBaseTorso, OrganTwergExternal ]
+  id: OrganTwergTorso
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Tail
+
+- type: entity
+  parent: [ OrganBaseHead, OrganTwergExternal ]
+  id: OrganTwergHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Snout
+    - enum.HumanoidVisualLayers.Hair
+    - enum.HumanoidVisualLayers.FacialHair
+    dependentHidingLayers:
+      enum.HumanoidVisualLayers.Snout:
+      - enum.HumanoidVisualLayers.SnoutCover
+    markingsDisplacement:
+      Hair:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Twerg/displacement.rsi
+            state: hair
+
+- type: entity
+  parent: [ OrganBaseArmLeft, OrganTwergExternal ]
+  id: OrganTwergArmLeft
+
+- type: entity
+  parent: [ OrganBaseArmRight, OrganTwergExternal ]
+  id: OrganTwergArmRight
+
+- type: entity
+  parent: [ OrganBaseHandLeft, OrganTwergExternal ]
+  id: OrganTwergHandLeft
+
+- type: entity
+  parent: [ OrganBaseHandRight, OrganTwergExternal ]
+  id: OrganTwergHandRight
+
+- type: entity
+  parent: [ OrganBaseLegLeft, OrganTwergExternal ]
+  id: OrganTwergLegLeft
+
+- type: entity
+  parent: [ OrganBaseLegRight, OrganTwergExternal ]
+  id: OrganTwergLegRight
+
+- type: entity
+  parent: [ OrganBaseFootLeft, OrganTwergExternal ]
+  id: OrganTwergFootLeft
+
+- type: entity
+  parent: [ OrganBaseFootRight, OrganTwergExternal ]
+  id: OrganTwergFootRight
+
+- type: entity
+  parent: [ OrganBaseBrain, OrganSpriteHumanInternal, OrganTwergInternal ]
+  id: OrganTwergBrain
+
+- type: entity
+  parent: [ OrganTwergVisual, OrganBaseEyes, OrganTwergInternal ]
+  id: OrganTwergEyes
+
+- type: entity
+  parent: [ OrganBaseTongue, OrganTwergInternal ]
+  id: OrganTwergTongue
+
+- type: entity
+  parent: [ OrganBaseAppendix, OrganSpriteHumanInternal, OrganTwergInternal ]
+  id: OrganTwergAppendix
+
+- type: entity
+  parent: [ OrganBaseEars, OrganSpriteHumanInternal, OrganTwergInternal ]
+  id: OrganTwergEars
+
+- type: entity
+  parent: [ OrganBaseLungs, OrganTwergInternal, OrganTwergMetabolizer ]
+  id: OrganTwergLungs
+
+- type: entity
+  parent: [ OrganBaseHeart, OrganTwergInternal, OrganTwergMetabolizer ]
+  id: OrganTwergHeart
+
+- type: entity
+  parent: [ OrganBaseStomach, OrganTwergInternal, OrganTwergMetabolizer ]
+  id: OrganTwergStomach
+  components:
+  - type: Stomach
+    specialDigestible:
+      tags:
+      - Trash
+    isSpecialDigestibleExclusive: false
+
+- type: entity
+  parent: [ OrganBaseLiver, OrganSpriteHumanInternal, OrganTwergInternal, OrganTwergMetabolizer ]
+  id: OrganTwergLiver
+
+- type: entity
+  parent: [ OrganBaseKidneys, OrganSpriteHumanInternal, OrganTwergInternal, OrganTwergMetabolizer ]
+  id: OrganTwergKidneys

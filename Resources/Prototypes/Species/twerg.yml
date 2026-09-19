@@ -1,0 +1,19 @@
+- type: species
+  id: Twerg
+  name: species-name-Twerg
+  roundStart: true
+  prototype: MobTwerg
+  dollPrototype: AppearanceTwerg
+  skinColoration: Hues
+  defaultSkinTone: "#b8b8b8"
+  maleFirstNames: NamesVox
+  femaleFirstNames: NamesVox
+  defaultSoundsBySex:
+  - UnisexVox
+  - UnisexVox
+  - UnisexVox
+  voices:
+  - UnisexVox
+
+
+
