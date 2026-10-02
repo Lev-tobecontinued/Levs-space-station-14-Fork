@@ -92,19 +92,6 @@
   components:
   - type: Damageable
     damageModifierSet: Twerg
-  - type: Fixtures
-    fixtures: # TODO: This needs a second fixture just for mob collisions.
-      fix1:
-        shape:
-          !type:PhysShapeCircle
-          radius: 0.35
-        # they r smaller
-        density: 120
-        restitution: 0.0
-        mask:
-        - MobMask
-        layer:
-        - MobLayer
   - type: Speech
     speechVerb: Vox
     speechSounds: Vox
@@ -119,8 +106,6 @@
     sprite:
       sprite: Effects/creampie.rsi
       state: creampie_vox
-  - type: Damageable
-    displacement: vox
   - type: Flammable
     displacement: vox
   - type: InnerBodyAnomalyVisuals
@@ -157,7 +142,7 @@
   abstract: true
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Twerg ]
+    metabolizerTypes: [ Human ]
 
 - type: entity
   parent: OrganTwerg
@@ -187,12 +172,11 @@
     sprite: Mobs/Species/Twerg/parts.rsi
 
 - type: entity
-  parent: [ OrganBaseTorso, OrganTwergExternal ]
+  parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganTwergExternal ]
   id: OrganTwergTorso
   components:
   - type: VisualOrganMarkings
-    hideableLayers:
-    - enum.HumanoidVisualLayers.Tail
+
 
 - type: entity
   parent: [ OrganBaseHead, OrganTwergExternal ]
